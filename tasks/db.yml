@@ -1,0 +1,11 @@
+---
+
+- block:
+    - name: Ensure that we have a DB
+      postgresql_db: "name={{ django_db_name }}"
+
+    - name: Ensure that we have a DB user
+      postgresql_user: "name={{ django_db_user }} db={{ django_db_name }} password={{ django_db_password }} priv=ALL role_attr_flags=CREATEDB"
+
+  become: yes
+  become_user: postgres

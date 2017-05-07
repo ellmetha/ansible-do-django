@@ -1,0 +1,29 @@
+---
+
+- name: Create a uWSGI config file for the Django project
+  template: src=uwsgi.ini.j2 dest={{ django_path }}/uwsgi.ini
+  register: wsgi_config
+  notify:
+    - nginx restart
+
+- name: Setup systemd service
+  template:
+    src: uwsgi.service.j2
+    dest: "/etc/systemd/system/{{ django_name }}-wsgi.service"
+    owner: root
+    group: root
+    mode: 0644
+  register: wsgi_service
+  notify:
+    - nginx restart
+
+- name: Reload systemd
+  shell: systemctl daemon-reload
+  when: wsgi_service|changed
+
+- name: Ensure that the uWSGI service is enabled
+  service: "name={{ django_name }}-wsgi enabled=yes"
+
+- name: Restart the uWSGI service
+  service: "name={{ django_name }}-wsgi state=restarted"
+  when: wsgi_service.changed or wsgi_config.changed

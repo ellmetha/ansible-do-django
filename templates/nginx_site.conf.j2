@@ -1,0 +1,34 @@
+upstream {{ django_name }} {
+    server unix://{{ django_path }}/.wsgi.sock;
+}
+
+server {
+    listen 443 ssl;
+    server_name {{ django_domain_name }} {% for domain in django_extra_domain_names|default([]) %}{{ domain }}{% endfor %};
+
+    {% if ssl_config_file.stat.exists -%}
+    include {{ ssl_config_file.stat.path }};
+    {%- else %}
+    include snippets/snakeoil.conf;
+    {%- endif %}
+
+    {% if django_disallow_robots -%}
+    include snippets/disallow_robots.conf;
+    {%- endif %}
+
+    error_log /var/log/nginx/{{ django_name }}_error.log;
+    access_log /var/log/nginx/{{ django_name }}_access.log;
+
+    location /static/ {
+        alias {{ django_static_path }}/;
+    }
+
+    location /media/ {
+        alias {{ django_media_path }}/;
+    }
+
+    location / {
+        uwsgi_pass  {{ django_name }};
+        include     uwsgi_params;
+    }
+}

@@ -1,0 +1,10 @@
+---
+
+- name: Clone the git repository associated with the django project
+  git:
+    repo: "{{ django_project_repo_url }}"
+    version: "{{ django_project_repo_version }}"
+    dest: "{{ django_project_path }}"
+    accept_hostkey: yes
+    recursive: no
+    force: yes

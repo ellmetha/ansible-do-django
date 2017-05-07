@@ -1,0 +1,22 @@
+---
+
+- name: Check if a potential SSL config exist for the considered Django domain name
+  stat: path="/etc/nginx/snippets/{{ django_domain_name }}.ssl.conf"
+  register: ssl_config_file
+
+- name: Check if acme_well_known config is there
+  stat: path="/etc/nginx/snippets/acme_well_known.conf"
+  register: acme_well_known_config_file
+
+- name: Create nginx sites config
+  template: src=nginx_site.conf.j2 dest=/etc/nginx/sites-available/{{ django_name }}.conf
+  notify:
+    - nginx restart
+
+- name: Create symbolic links for sites config to enable sites
+  file:
+    path: "/etc/nginx/sites-enabled/{{ django_name }}.conf"
+    state: link
+    src: "/etc/nginx/sites-available/{{ django_name }}.conf"
+  notify:
+    - nginx restart

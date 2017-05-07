@@ -1,0 +1,18 @@
+---
+
+- name: Create a virtualenv for the Django project
+  command: "/usr/bin/{{ django_python_version}} -m venv --system-site-packages {{ django_env_path }} creates={{ django_env_path }}"
+
+- name: Upgrade pip inside the newly created virtualenv
+  pip:
+    name: pip
+    state: latest
+    virtualenv: "{{ django_env_path }}"
+
+- name: Install project's requirements
+  command: "{{ django_env_path }}/bin/pip install -r {{ django_requirements_file }}"
+  register: pip_install_result
+  changed_when: "'Successfully installed' in pip_install_result.stdout"
+
+- include: trigger_reload.yml
+  when: "pip_install_result|changed"

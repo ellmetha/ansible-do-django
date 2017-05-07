@@ -1,0 +1,10 @@
+---
+
+- name: Create .env.json settings file
+  copy:
+    content: "{{ django_jsonsettings_properties }}"
+    dest: "{{ django_path }}/.env.json"
+  register: env_json_config_content
+
+- include: trigger_reload.yml
+  when: "env_json_config_content|changed"

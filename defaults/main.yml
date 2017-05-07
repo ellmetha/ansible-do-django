@@ -1,0 +1,102 @@
+---
+
+
+#-------------------------------------------------------------------------------
+# General
+#
+
+# The django project name. It is mainly used to generate project paths.
+django_name: django
+
+# User owning the Django project.
+django_user: "{{ django_name }}"
+
+# Group owning the static/media directories. This is needed to grant access to specific http servers
+# (like nginx) to these directories.
+django_files_group: "www-data"
+
+# The python version that should be used to propulse the Django application. It should correspond to
+# a python command name; eg. python2.7, python3, python3.6, etc.
+django_python_version: python3
+
+
+#-------------------------------------------------------------------------------
+# Paths
+#
+
+# Root directory where the Django project will live.
+django_path: "/webapps/{{ django_name }}"
+
+# Path where static files will be stored (should correspond to the value of STATIC_ROOT).
+django_static_path: "{{ django_path }}/static"
+
+# Path where media files will be stored (should correspond to the value of MEDIA_ROOT).
+django_media_path: "{{ django_path }}/media"
+
+# Path where the Django project will be cloned.
+django_project_path: "{{ django_path }}/project"
+
+# Path where the virtualenv of the project will be stored.
+django_env_path: "{{ django_path }}/.env"
+
+# Path to the requirements file to install when setuping the project.
+django_requirements_file: "{{ django_project_path }}/requirements.txt"
+
+# This path will be used to reload the WSGI application whenever it is "touched" (usefull in case of
+# python code changes). An empty value ('') should be used to disable touch-reloading.
+django_touch_reload_path: "{{ django_project_path }}"
+
+
+#-------------------------------------------------------------------------------
+# Database
+#
+
+# User to use for database connections.
+django_db_user: "{{ django_user }}"
+
+# The name of the database to use for the Django project.
+django_db_name: "{{ django_name }}"
+
+# The password to use for database connections.
+django_db_password: whatever
+
+
+#-------------------------------------------------------------------------------
+# Git
+#
+
+# Git URL of the repository for the Django project.
+django_project_repo_url: ""
+
+# Branch to use when cloning the project.
+django_project_repo_version: master
+
+
+#-------------------------------------------------------------------------------
+# Django settings
+#
+
+# This variable is used to create a ".env.json" file at the root of the project folder. This file is
+# aimed to contain secret variables (like the content of the SECRET_KEY Django setting).
+django_jsonsettings_properties: {}
+
+# This variable can define some environment variable key/value pairs that should be set before
+# running the Django application or any related command (a common use case would be to set the
+# DJANGO_SETTINGS_MODULE variables in this dictionary).
+django_env_variables: {}
+
+# Domain name under which the project will be served. It will notably end ep in nginx conf as
+# server_name.
+django_domain_name: ""
+django_extra_domain_names: []
+
+
+#-------------------------------------------------------------------------------
+# Other
+#
+
+# Fixtures to load using Django's loaddata command.
+django_fixtures_to_load: []
+
+# Ends up in "processes" uwsgi config
+django_uwsgi_process_count: 5

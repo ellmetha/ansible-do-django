@@ -1,0 +1,16 @@
+---
+
+- include: system.yml
+- include: db.yml
+
+- block:
+  - include: git.yml
+  - include: virtualenv.yml
+  - include: jsonsettings.yml
+  - include: django.yml
+
+  become: yes
+  become_user: "{{ django_user }}"
+
+- include: uwsgi.yml
+- include: nginx.yml
