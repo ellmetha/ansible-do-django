@@ -24,7 +24,7 @@ server {
     gzip_buffers 16 8k;
     gzip_http_version 1.1;
     gzip_min_length 256;
-    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon;
+    gzip_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon;
 
     error_log /var/log/nginx/{{ django_name }}_error.log;
     access_log /var/log/nginx/{{ django_name }}_access.log;
