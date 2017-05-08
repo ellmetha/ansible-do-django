@@ -98,5 +98,8 @@ django_extra_domain_names: []
 # Fixtures to load using Django's loaddata command.
 django_fixtures_to_load: []
 
-# Ends up in "processes" uwsgi config
+# Ends up in "processes" uwsgi config.
 django_uwsgi_process_count: 5
+
+# Allows to disallow robots by including the "disallow_robots" snippet provided by the nginx role.
+django_disallow_robots: no
