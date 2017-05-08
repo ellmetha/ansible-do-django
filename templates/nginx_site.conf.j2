@@ -30,6 +30,7 @@ server {
     access_log /var/log/nginx/{{ django_name }}_access.log;
 
     location /static/ {
+        expires 365d;
         alias {{ django_static_path }}/;
     }
 
@@ -40,9 +41,5 @@ server {
     location / {
         uwsgi_pass  {{ django_name }};
         include     uwsgi_params;
-    }
-
-    location ~* \.(jpg|jpeg|png|gif|ico|css|js|ttf|woff2||svg)$ {
-        expires 365d;
     }
 }
