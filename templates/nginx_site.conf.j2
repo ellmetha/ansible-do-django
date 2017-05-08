@@ -41,4 +41,8 @@ server {
         uwsgi_pass  {{ django_name }};
         include     uwsgi_params;
     }
+
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|ttf|woff2||svg)$ {
+        expires 365d;
+    }
 }
