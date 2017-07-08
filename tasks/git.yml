@@ -8,3 +8,4 @@
     accept_hostkey: yes
     recursive: no
     force: yes
+    key_file: "{{ deploy_key_filepath|default('') }}"
