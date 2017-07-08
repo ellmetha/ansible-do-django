@@ -51,6 +51,9 @@ django_touch_reload_path: "{{ django_project_path }}"
 # Database
 #
 
+# Whether or not the role should be responsible for the database creation (defaults to yes).
+django_db_managed: yes
+
 # User to use for database connections.
 django_db_user: "{{ django_user }}"
 
