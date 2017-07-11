@@ -2,6 +2,7 @@
 module=wsgi:application
 socket={{ django_path }}/.wsgi.sock
 chmod-socket=660
+enable-threads=true
 uid={{ django_user }}
 gid=www-data
 chdir={{ django_project_path }}
