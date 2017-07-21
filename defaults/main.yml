@@ -109,3 +109,7 @@ django_uwsgi_process_count: 5
 
 # Allows to disallow robots by including the "disallow_robots" snippet provided by the nginx role.
 django_disallow_robots: no
+
+# Allows to indicate if the nginx config should only answer to HTTP requests or not (by default SSL
+# is used and requests on port 80 are ignored).
+django_disable_ssl: no

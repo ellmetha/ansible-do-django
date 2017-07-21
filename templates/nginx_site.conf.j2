@@ -3,8 +3,13 @@ upstream {{ django_name }} {
 }
 
 server {
+    {% if not django_disable_ssl -%}
     listen 443 ssl;
     server_name {{ django_domain_name }} {% for domain in django_extra_domain_names|default([]) %}{{ domain }}{% endfor %};
+    {%- else %}
+    listen 80;
+    server_name {{ django_domain_name }} {% for domain in django_extra_domain_names|default([]) %}{{ domain }}{% endfor %};
+    {%- endif %}
 
     {% if ssl_config_file.stat.exists -%}
     include {{ ssl_config_file.stat.path }};
