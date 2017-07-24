@@ -47,7 +47,7 @@ server {
         uwsgi_pass  {{ django_name }};
         include     uwsgi_params;
 
-        {% if not django_disable_ssl or django_force_http_to_https_redirect -%}
+        {% if django_force_http_to_https_redirect -%}
         if ($http_x_forwarded_proto != "https") {
           rewrite ^(.*)$ https://$server_name$1 permanent;
         }
