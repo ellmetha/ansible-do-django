@@ -113,3 +113,7 @@ django_disallow_robots: no
 # Allows to indicate if the nginx config should only answer to HTTP requests or not (by default SSL
 # is used and requests on port 80 are ignored).
 django_disable_ssl: no
+
+# Allows to force http -> https redirection in the Nginx site configuration (this could be useful
+# if such redirection is not present in a potential catchal config).
+force_http_to_https_redirect: no
