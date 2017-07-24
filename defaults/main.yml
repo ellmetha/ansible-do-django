@@ -116,4 +116,4 @@ django_disable_ssl: no
 
 # Allows to force http -> https redirection in the Nginx site configuration (this could be useful
 # if such redirection is not present in a potential catchal config).
-force_http_to_https_redirect: no
+django_force_http_to_https_redirect: no
