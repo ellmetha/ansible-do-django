@@ -20,3 +20,13 @@
     src: "/etc/nginx/sites-available/{{ django_name }}.conf"
   notify:
     - nginx restart
+
+- name: Create a .htpasswd file if applicable
+  htpasswd:
+    path: "/etc/nginx/.htpasswd_{{ django_name }}"
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    owner: root
+    group: www-data
+    mode: 0640
+  with_items: "{{ django_htpasswd_users }}"

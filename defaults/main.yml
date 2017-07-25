@@ -115,5 +115,13 @@ django_disallow_robots: no
 django_disable_ssl: no
 
 # Allows to force http -> https redirection in the Nginx site configuration (this could be useful
-# if such redirection is not present in a potential catchal config).
-django_force_http_to_https_redirect: no
+# if such redirection is not present in a potential catchall config).
+django_force_https_redirect: no
+
+# Allows to configure httpasswd users to use to protect the Django webapp using a basic HTTP
+# authentication. This will be used to created a .httpasswd file and to update the Django app's
+# nginx config.
+django_htpasswd_users: []
+_django_htpasswd_users_example:
+  - name: test
+    password: dummy
