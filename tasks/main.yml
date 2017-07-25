@@ -2,7 +2,7 @@
 
 - include: system.yml
 - include: db.yml
-  when: "{{ django_db_managed }}"
+  when: django_db_managed
 
 - block:
   - include: git.yml
