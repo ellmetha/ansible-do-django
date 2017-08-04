@@ -68,6 +68,14 @@ django_db_password: whatever
 
 
 #-------------------------------------------------------------------------------
+# Django management commands
+#
+
+# Allows to disable django management commands execution (eg. migrate, collectstatic, etc).
+django_commands_enabled: yes
+
+
+#-------------------------------------------------------------------------------
 # Git
 #
 

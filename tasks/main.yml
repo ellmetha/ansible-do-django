@@ -9,6 +9,7 @@
   - include: virtualenv.yml
   - include: jsonsettings.yml
   - include: django.yml
+    when: django_commands_enabled
 
   become: yes
   become_user: "{{ django_user }}"
