@@ -133,3 +133,7 @@ django_htpasswd_users: []
 _django_htpasswd_users_example:
   - name: test
     password: dummy
+
+# Allows to limit the maximum allowed size of the client request body. This value goes to the
+# nginx's client_max_body_size option.
+django_client_max_body_size: 50M

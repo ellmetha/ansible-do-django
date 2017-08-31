@@ -11,6 +11,10 @@ server {
     server_name {{ django_domain_name }} {% for domain in django_extra_domain_names|default([]) %}{{ domain }}{% endfor %};
     {%- endif %}
 
+    {% if django_client_max_body_size -%}
+    client_max_body_size {{ django_client_max_body_size }};
+    {%- endif %}
+
     {% if ssl_config_file.stat.exists -%}
     include {{ ssl_config_file.stat.path }};
     {%- else %}
