@@ -35,7 +35,7 @@
   file:
       path: "{{ item }}"
       state: directory
-      group: "{{ django_files_group }}"
+      group: www-data
       recurse: yes
       mode: "u=rwX,g=rX,o="
   changed_when: false

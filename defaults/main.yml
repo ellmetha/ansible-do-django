@@ -11,10 +11,6 @@ django_name: django
 # User owning the Django project.
 django_user: "{{ django_name }}"
 
-# Group owning the static/media directories. This is needed to grant access to specific http servers
-# (like nginx) to these directories.
-django_files_group: "www-data"
-
 # The python version that should be used to propulse the Django application. It should correspond to
 # a python command name; eg. python2.7, python3, python3.6, etc.
 django_python_version: python3
