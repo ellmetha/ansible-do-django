@@ -19,7 +19,7 @@
 
 - name: Reload systemd
   shell: systemctl daemon-reload
-  when: wsgi_service|changed
+  when: wsgi_service is changed
 
 - name: Ensure that the uWSGI service is enabled
   service: "name={{ django_name }}-wsgi enabled=yes"

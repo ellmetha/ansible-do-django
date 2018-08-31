@@ -7,4 +7,4 @@
   register: env_json_config_content
 
 - include: trigger_reload.yml
-  when: "env_json_config_content|changed"
+  when: env_json_config_content is changed
