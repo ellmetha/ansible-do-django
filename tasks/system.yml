@@ -41,7 +41,7 @@
       - uwsgi-plugin-python3
 
 - name: Add Python's deadsnakes repository
-  apt_repository: repo="ppa:fkrull/deadsnakes"
+  apt_repository: repo="ppa:deadsnakes/ppa"
 
 - name: Install the python version required for the Django application
   apt:
