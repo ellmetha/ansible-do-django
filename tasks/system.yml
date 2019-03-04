@@ -36,7 +36,6 @@
     name:
       - gettext
       - python3-venv
-      - python-software-properties
       - uwsgi
       - uwsgi-plugin-python
       - uwsgi-plugin-python3
