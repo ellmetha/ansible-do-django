@@ -31,26 +31,25 @@
   when: "django_deploy_key_filepath != ''"
 
 - name: Install additional packages that could be required by the Django app
-  apt: name={{ item }} state=present
-  with_items:
-    - gettext
-    - libav-tools
-    - libjpeg-dev
-    - libpng12-dev
-    - python3-venv
-    - python-software-properties
-    - uwsgi
-    - uwsgi-plugin-python
-    - uwsgi-plugin-python3
+  apt:
+    state: present
+    name:
+      - gettext
+      - python3-venv
+      - python-software-properties
+      - uwsgi
+      - uwsgi-plugin-python
+      - uwsgi-plugin-python3
 
 - name: Add Python's deadsnakes repository
   apt_repository: repo="ppa:fkrull/deadsnakes"
 
 - name: Install the python version required for the Django application
-  apt: name="{{ item }}" state=present
-  with_items:
-    - "{{ django_python_version }}"
-    - "{{ django_python_version }}-dev"
+  apt:
+    state: present
+    name:
+      - "{{ django_python_version }}"
+      - "{{ django_python_version }}-dev"
 
 - name: Ensure that the required folders exist
   file: path={{ item }} state=directory owner={{ django_user }}
