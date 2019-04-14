@@ -1,7 +1,0 @@
----
-
-- name: Trigger a reload of the WSGI application
-  file:
-    path: "{{ django_touch_reload_path }}"
-    state: touch
-  when: "django_touch_reload_path != ''"

@@ -9,7 +9,3 @@
     recursive: no
     force: yes
     key_file: "{{ deploy_key_filepath|default('') }}"
-  register: gitclone
-
-- include: trigger_reload.yml
-  when: gitclone.changed

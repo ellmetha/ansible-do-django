@@ -26,4 +26,3 @@
 
 - name: Restart the uWSGI service
   service: "name={{ django_name }}-wsgi state=restarted"
-  when: wsgi_service.changed or wsgi_config.changed
