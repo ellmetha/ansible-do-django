@@ -10,7 +10,7 @@
     shell: uwsgi --build-plugin "/usr/src/uwsgi/plugins/python {{ django_python_version|replace('.', '') }}"
 
   - name: Move the compiled uWSGI plugin to plugins location
-    shell: mv python37_plugin.so /usr/lib/uwsgi/plugins/{{ django_python_version|replace('.', '') }}_plugin.so
+    shell: mv {{ django_python_version|replace('.', '') }}_plugin.so /usr/lib/uwsgi/plugins/{{ django_python_version|replace('.', '') }}_plugin.so
 
   - name: Set uWSGI plugin permissions
     file:
