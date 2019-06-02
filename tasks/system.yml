@@ -17,19 +17,6 @@
     group: www-data
     mode: ug=rwx,o=
 
-- block:
-  - set_fact:
-      deploy_key_filepath: "/home/{{ django_user }}/.ssh/deploy_key"
-
-  - name: Send private deploy key to the remote project's user if applicable
-    copy:
-      src: "{{ django_deploy_key_filepath }}"
-      dest: "{{ deploy_key_filepath }}"
-      owner: "{{ django_user }}"
-      mode: 0600
-
-  when: "django_deploy_key_filepath != ''"
-
 - name: Install additional packages that could be required by the Django app
   apt:
     state: present
@@ -61,3 +48,44 @@
     - "{{ django_path }}"
     - "{{ django_static_path }}"
     - "{{ django_media_path }}"
+
+- block:
+  - set_fact:
+      deploy_key_filepath: "/home/{{ django_user }}/.ssh/deploy_key"
+
+  - name: Send private deploy key to the remote project's user if applicable
+    copy:
+      src: "{{ django_deploy_key_filepath }}"
+      dest: "{{ deploy_key_filepath }}"
+      owner: "{{ django_user }}"
+      mode: 0600
+
+  when: "django_deploy_key_filepath != ''"
+
+- block:
+  - name: Ensure that apt-transport-https is installed
+    apt: name=apt-transport-https state=present
+
+  - name: Add Nodesource apt key
+    apt_key:
+      url: https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280
+      id: "68576280"
+      state: present
+
+  - name: Add NodeSource repositories for Node.js
+    apt_repository:
+      repo: "{{ item }}"
+      state: present
+    with_items:
+      - "deb https://deb.nodesource.com/node_{{ django_node_assets_nodejs_version }} {{ ansible_distribution_release }} main"
+      - "deb-src https://deb.nodesource.com/node_{{ django_node_assets_nodejs_version }} {{ ansible_distribution_release }} main"
+    register: node_repo
+
+  - name: Update apt cache if repo was added
+    apt: update_cache=yes
+    when: node_repo.changed
+
+  - name: Ensure Node.js and npm are installed
+    apt: "name=nodejs={{ django_node_assets_nodejs_version|regex_replace('x', '') }}* state=present"
+
+  when: django_node_assets_enabled

@@ -102,6 +102,17 @@ django_extra_domain_names: []
 
 
 #-------------------------------------------------------------------------------
+# Node.js Assets
+#
+
+# These variables allows to activate the installation of Node.js and NPM and ensure that node
+# dependencies are installed / built for the project if applicable.
+django_node_assets_enabled: no
+django_node_assets_nodejs_version: 11.x
+django_node_assets_build_command: npm build
+
+
+#-------------------------------------------------------------------------------
 # Other
 #
 

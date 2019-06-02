@@ -8,6 +8,8 @@
   - include: git.yml
   - include: virtualenv.yml
   - include: jsonsettings.yml
+  - include: node_assets.yml
+    when: django_node_assets_enabled
   - include: django.yml
     when: django_commands_enabled
 

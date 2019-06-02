@@ -1,0 +1,9 @@
+---
+
+- name: Run NPM install
+  npm: path={{ django_project_path }}
+
+- name: Build node assets
+  command: "{{ django_node_assets_build_command }}"
+  args:
+    chdir: "{{ django_project_path }}"
