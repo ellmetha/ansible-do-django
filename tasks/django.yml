@@ -1,6 +1,19 @@
 ---
 
 - block:
+  - name: Collect static files
+    django_manage:
+      app_path: "{{ django_project_path }}"
+      pythonpath: "{{ django_project_path }}"
+      command: collectstatic
+      # When we're in production, collected static files have a different access model then the
+      # rest of the project, so we don't want to symlink it. However, when we're in development
+      # mode, we prefer to be able to quickly see the result of our static files, so we want to
+      # symlink it.
+      link: no
+      virtualenv: "{{ django_env_path }}"
+    changed_when: false
+
   - name: Apply project's migration
     django_manage:
       app_path: "{{ django_project_path }}"
@@ -15,19 +28,6 @@
       command: "loaddata {{ item }}"
       virtualenv: "{{ django_env_path }}"
     with_items: "{{ django_fixtures_to_load }}"
-
-  - name: Collect static files
-    django_manage:
-      app_path: "{{ django_project_path }}"
-      pythonpath: "{{ django_project_path }}"
-      command: collectstatic
-      # When we're in production, collected static files have a different access model then the
-      # rest of the project, so we don't want to symlink it. However, when we're in development
-      # mode, we prefer to be able to quickly see the result of our static files, so we want to
-      # symlink it.
-      link: no
-      virtualenv: "{{ django_env_path }}"
-    changed_when: false
 
   environment: "{{ django_env_variables }}"
 
