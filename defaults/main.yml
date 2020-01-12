@@ -36,7 +36,7 @@ django_media_path: "{{ django_path }}/media"
 django_project_path: "{{ django_path }}/project"
 
 # Path where the virtualenv of the project will be stored.
-django_env_path: "{{ django_path }}/.env"
+django_env_path: "{{ django_path }}/.env_{{ django_python_version }}"
 
 # Path to the requirements file to install when setuping the project.
 django_requirements_file: "{{ django_project_path }}/requirements.txt"
