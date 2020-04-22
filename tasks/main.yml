@@ -16,5 +16,5 @@
   become: yes
   become_user: "{{ django_user }}"
 
-- include: uwsgi.yml
+- include: asgi.yml
 - include: nginx.yml
