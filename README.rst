@@ -3,7 +3,7 @@ ansible-do-django
 
 This Ansible role allows to setup a Django project using some opiniated mechanisms and tools (eg.
 regarding the way to use env-specific settings, etc). Django projects provisioned using this role
-will be served using Nginx and uWSGI.
+will be served using Nginx and Uvicorn (ASGI).
 
 Requirements
 ============

@@ -1,0 +1,16 @@
+[Unit]
+Description=Uvicorn Instance to serve {{ django_name }}
+After=syslog.target
+
+[Service]
+ExecStart={{ django_env_path }}/bin/uvicorn {{ django_asgi_app_factory }} --host localhost --port 8080 --workers {{ django_asgi_process_count }}
+Restart=always
+RestartSec=5s
+KillSignal=SIGQUIT
+WorkingDirectory={{ django_project_path }}
+{% for key, value in django_env_variables.items() %}
+Environment={{ key }}={{ value }}
+{% endfor %}
+
+[Install]
+WantedBy=multi-user.target

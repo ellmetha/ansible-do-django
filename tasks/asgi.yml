@@ -1,0 +1,22 @@
+---
+
+- name: Setup systemd service
+  template:
+    src: uvicorn.service.j2
+    dest: "/etc/systemd/system/{{ django_name }}-asgi.service"
+    owner: root
+    group: root
+    mode: 0644
+  register: asgi_service
+  notify:
+    - nginx restart
+
+- name: Reload systemd
+  shell: systemctl daemon-reload
+  when: asgi_service is changed
+
+- name: Ensure that the ASGI service is enabled
+  service: "name={{ django_name }}-asgi enabled=yes"
+
+- name: Restart the ASGI service
+  service: "name={{ django_name }}-asgi state=restarted"

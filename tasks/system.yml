@@ -23,10 +23,6 @@
     name:
       - gettext
       - python3-venv
-      - uwsgi
-      - uwsgi-plugin-python
-      - uwsgi-plugin-python3
-      - uwsgi-src
       - uuid-dev
       - libcap-dev
       - libpcre3-dev

@@ -13,3 +13,6 @@
   command: "{{ django_env_path }}/bin/pip install -r {{ django_requirements_file }}"
   register: pip_install_result
   changed_when: "'Successfully installed' in pip_install_result.stdout"
+
+- name: Ensures Uvicorn is installed
+  command: "{{ django_env_path }}/bin/pip install uvicorn"
